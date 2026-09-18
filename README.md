@@ -169,13 +169,13 @@ Schema de las tablas:
 
 ```sql
 CREATE TABLE IF NOT EXISTS assets (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, --autogenerado
-    asset_uri TEXT UNIQUE NOT NULL, --url del recurso
-    title TEXT, --titulo de lo que extraemos(titulo de sheets)
-    entity TEXT NOT NULL, --que es (url video, libro, sheets)
-    provider TEXT NOT NULL, --sitio que consultamos
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- dia que creamos el recurso
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- dia que se actualiza, primero se copia el dia que se creo
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    asset_uri TEXT UNIQUE NOT NULL, 
+    title TEXT, 
+    entity TEXT NOT NULL, 
+    provider TEXT NOT NULL, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
     meta_payload TEXT -- Ultima informacion, JSON polimórfico con la metadata del proveedor
 );
 
