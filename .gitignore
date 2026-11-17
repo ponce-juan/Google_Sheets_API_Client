@@ -54,5 +54,8 @@ dkms.conf
 # debug information files
 *.dwo
 
+# Environment
+*.env
+
 # Txt information file
 info.txt
