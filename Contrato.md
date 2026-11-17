@@ -39,7 +39,7 @@ El proyecto incluirá:
 * Definición de modelo de datos mínimo: `assets`, `assets_history`.
 * Documento de Contrato (este documento).
 * Documento de Workplan del proyecto.
-* README.md técnico del repositorio (dependencias, requisitos previos, compilación/uso, comandos CLI, flujo de la app, estructura del proyecto).
+* README.md técnico del repositorio (dependencias, requisitos previos, compilación/uso, comandos CLI, flujo de la app, modelo de tests, estructura del proyecto).
 
 ## 5. Criterios de aceptación
 
