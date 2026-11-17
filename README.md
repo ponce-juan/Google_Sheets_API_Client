@@ -166,28 +166,44 @@ La respuesta del API se proyecta sobre la tabla `assets`:
   historial de versiones del recurso.
 
 Schema de las tablas:
-
+ 
 ```sql
-CREATE TABLE IF NOT EXISTS assets (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    asset_uri TEXT UNIQUE NOT NULL, 
-    title TEXT, 
-    entity TEXT NOT NULL, 
-    provider TEXT NOT NULL, 
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
-    meta_payload TEXT -- Ultima informacion, JSON polimórfico con la metadata del proveedor
-);
+PRAGMA foreign_keys = ON;
 
+CREATE TABLE IF NOT EXISTS assets (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    asset_uri TEXT UNIQUE NOT NULL,
+    title TEXT,
+    entity TEXT NOT NULL
+        CHECK(entity = 'spreadsheet'),
+    provider TEXT NOT NULL
+        CHECK(provider = 'google_sheets'),
+    meta_payload TEXT NOT NULL
+        CHECK(json_valid(meta_payload)), -- JSON polimórfico con la metadata del proveedor
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+  
 CREATE TABLE IF NOT EXISTS assets_history (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     asset_id INTEGER NOT NULL,
-    changed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    history_payload TEXT NOT NULL, -- Snapshot JSON completo de la fila antes de mutar
-    FOREIGN KEY (asset_id) REFERENCES assets (id) ON DELETE CASCADE
+    history_payload TEXT NOT NULL
+        CHECK(json_valid(history_payload)), -- Snapshot JSON completo de la fila antes de mutar
+    changed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE CASCADE
 );
+ 
+ 
+CREATE INDEX IF NOT EXISTS idx_assets_history_asset_id
+ON assets_history(asset_id);
 ```
-
+ 
+Qué se agregó respecto a la versión anterior:
+ 
+- `PRAGMA foreign_keys = ON;` — SQLite no valida foreign keys por defecto, hay que activarlo explícitamente en cada conexión.
+- `CHECK(json_valid(...))` en `meta_payload` y `history_payload` — rechaza a nivel de base de datos cualquier intento de guardar un JSON corrupto, en vez de descubrirlo recién al leerlo de vuelta.
+- `CHECK(entity = ...)` / `CHECK(provider = ...)` — ambos campos son constantes en este proyecto; el CHECK deja eso documentado en el propio schema.
+- Índice sobre `assets_history(asset_id)` — SQLite **no crea automáticamente** un índice sobre columnas de foreign key (a diferencia de `asset_uri`, que al ser `UNIQUE` sí tiene su índice implícito). Sin este índice, buscar "todo el historial de un asset" recorre la tabla entera fila por fila.
 ---
 
 ## Estado / Base de datos
