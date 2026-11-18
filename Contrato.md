@@ -26,11 +26,11 @@ El proyecto incluirá:
 2. Conexión TCP construida a mano (sockets propios) + TLS mediante OpenSSL contra `sheets.googleapis.com`, puerto 443.
 3. Armado manual del request HTTP/1.1 (GET) contra el endpoint `/v4/spreadsheets/{spreadsheetId}`, usando la API Key como query param.
 4. Validación de la respuesta recibida contra un schema fijo definido por el proyecto (campos mínimos esperados: `spreadsheetId`, `properties.title`, `sheets[].properties`).
-5. Persistencia del payload JSON completo en una base SQLite local (tabla `assets`).
+5. Persistencia del payload JSON validado (sin los campos desconocidos) en una base SQLite local (tabla `assets`).
 6. Cálculo de un identificador de schema (hash de la estructura de campos) para detectar cambios estructurales entre ejecuciones.
 7. Versionado del schema cuando se detecta una diferencia: snapshot del estado anterior guardado en `assets_history` antes de sobreescribir.
 8. Manejo ante cambios de schema incompatibles: podar los campos no reconocidos, o finalizar la ejecución con mensaje de error claro, sin crashear.
-9. Manejo de errores HTTP (401, 403, 404, 429, 5xx) sin interrupción abrupta del programa.
+9. Manejo de errores HTTP (400, 401, 403, 404, 429, 5xx) sin interrupción abrupta del programa.
 
 ## 4. Entregables
 
@@ -52,11 +52,11 @@ Se considerará cumplido el contrato cuando:
 5. Se evidencie el almacenamiento del payload capturado en la base SQLite (`assets`).
 6. El sistema detecte correctamente cambio y no cambio de schema, versionando en `assets_history` cuando corresponda.
 7. Se mantenga trazabilidad del dato: puede reconstruirse qué se consultó y cuándo a partir de la base.
-8. Los errores HTTP (401/403/404/429/5xx) sean manejados sin interrupción abrupta del programa.
+8. Los errores HTTP (400/401/403/404/429/5xx) sean manejados sin interrupción abrupta del programa.
 
 ## 6. Exclusiones
 
-No se incluye en este proyecto, salvo acuerdo adicional:
+No se incluye en este proyecto:
 
 * Lectura de valores de celdas (contenido real de la hoja) — el alcance es exclusivamente metadata (`includeGridData=false`).
 * Escritura o modificación de la spreadsheet (no soportado con API Key simple; requeriría OAuth 2.0 o Service Account).
