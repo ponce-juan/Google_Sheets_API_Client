@@ -35,7 +35,7 @@ Aparte de la glibc, el proyecto usa:
 
 No usa ninguna otra librería externa. Quedan dentro de la glibc o son código propio:
 
-- **Sockets TCP** (`socket`, `connect`) y **resolución DNS** (`getaddrinfo`): glibc.
+- **Sockets TCP** (`socket`, `connect`) y **resolución DNS** (`getaddrinfo`, pidiendo IPv4 con `AF_INET` porque la restricción de la API Key es sobre IPv4): glibc.
 - **Armado y lectura de HTTP/1.1**: código propio.
 - **Parser JSON mínimo**: código propio (`src/json.c`).
 
