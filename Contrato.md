@@ -39,7 +39,8 @@ El proyecto incluirá:
 * Definición de modelo de datos mínimo: `assets`, `assets_history`.
 * Documento de Contrato (este documento).
 * Documento de Workplan del proyecto.
-* README.md técnico del repositorio (dependencias, requisitos previos, compilación/uso, comandos CLI, flujo de la app, modelo de tests, estructura del proyecto).
+* README.md técnico del repositorio (dependencias, requisitos previos, compilación/uso, comandos CLI, flujo de la app, modelo de tests, estructura del proyecto, documentación a  generar).
+* Documentación técnica en `Documentacion/`: análisis de la base de datos, configuración de la API, implementación y evidencias.
 
 ## 5. Criterios de aceptación
 
@@ -51,7 +52,7 @@ Se considerará cumplido el contrato cuando:
 4. La respuesta sea validada contra el schema fijo definido, y se evidencie el comportamiento ante un cambio de schema (poda de campos o finalización controlada).
 5. Se evidencie el almacenamiento del payload capturado en la base SQLite (`assets`).
 6. El sistema detecte correctamente cambio y no cambio de schema, versionando en `assets_history` cuando corresponda.
-7. Se mantenga trazabilidad del dato: puede reconstruirse qué se consultó y cuándo a partir de la base.
+7. Se mantenga trazabilidad del dato: a partir de la base podemos conocer qué recursro se guardó, cuándo fue su última captura y cuándo cambió su estructura.
 8. Los errores HTTP (400/401/403/404/429/5xx) sean manejados sin interrupción abrupta del programa.
 
 ## 6. Exclusiones
