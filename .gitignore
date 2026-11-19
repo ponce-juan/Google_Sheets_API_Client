@@ -62,3 +62,7 @@ info.txt
 
 # Databases
 *.db
+
+# Compilation
+.vscode
+build/

@@ -8,10 +8,10 @@
 
 | # | Tarea | Duración | Fecha inicio | Fecha fin | Depende de |
 |---|-------|----------|--------------|-----------|------------|
-| T0 | Contrato, Workplan y README iniciales (hecho) | 2 días | 17/11/26 | 18/11/26 | — |
-| T1 | Configurar API Key en Cloud Console + `02-API_SETUP.md` | 1 día | 18/11/26 | 18/11/26 | T0 |
-| T2 | Diseñar schema SQLite (`assets`, `assets_history`) + `01-BDD.md` | 1 día | _(completar)_ | _(completar)_ | T0 |
-| T3 | Implementar socket TCP manual | 2 días | _(completar)_ | _(completar)_ | T1 |
+| T0 | Contrato, Workplan y README iniciales | 2 días | 17/11/2026 | 18/11/2026 | — |
+| T1 | Configurar API Key en Cloud Console + `02-API_SETUP.md` | 1 día | 18/11/2026 | 18/11/2026 | T0 |
+| T2 | Diseñar schema SQLite (`assets`, `assets_history`) + `01-BDD.md` | 1 día | 18/11/2026 | 18/11/2026 | T0 |
+| T3 | Implementar socket TCP manual | 2 días | 18/11/2026 | 19/11/2026 | T1 |
 | T4 | Implementar TLS con OpenSSL sobre el socket | 2 días | _(completar)_ | _(completar)_ | T3 |
 | T5 | Armar request HTTP manual (GET) + parseo de URL/ID | 1 día | _(completar)_ | _(completar)_ | T4 |
 | T6 | Parsear JSON de la respuesta + validar contra schema fijo | 2 días | _(completar)_ | _(completar)_ | T5 |
